@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Fireball",
+    "description": "A ball of fire that explodes on impact.",
+    "category": "Elemental",
+    "symbol": "../data/img/FireMage_1.png"
+  },
+  {
+    "name": "Ice Shard",
+    "description": "A shard of ice that freezes everything it touches.",
+    "category": "Elemental",
+    "symbol": "../data/img/FrostMage_1.png"
+  },
+  {
+    "name": "Red Potato 3",
+    "description": "Newerwer red potato spell",
+    "category": "Elemental",
+    "symbol": "../data/img/BloodMage_1.png"
+  },
+  {
+    "name": "Red Potatoter",
+    "description": "Newwer",
+    "category": "Elemental",
+    "symbol": "../data/img/BloodMage_2.png"
+  }
+]
