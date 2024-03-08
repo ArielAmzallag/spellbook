@@ -6,11 +6,10 @@ import router from './router'
 import { initializeApp } from "firebase/app";
 
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAm1ozxEOLI6R6sK-ew0PvSOYdVwRJ78pw",
   authDomain: "spellbook-d52a0.firebaseapp.com",
+  databaseURL: "https://spellbook-d52a0-default-rtdb.europe-west1.firebasedatabase.app", // Your Realtime Database URL
   projectId: "spellbook-d52a0",
   storageBucket: "spellbook-d52a0.appspot.com",
   messagingSenderId: "987827423144",

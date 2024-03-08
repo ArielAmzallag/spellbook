@@ -99,9 +99,11 @@ const deleteSpell = async (spellId) => {
   try {
     await deleteDoc(doc(db, 'spells', spellId));
     alert('Spell deleted successfully');
+    
 
     // Update this line to use 'spells' instead of 'publicSpells'
     spells.value = spells.value.filter(spell => spell.id !== spellId);
+    location.reload()
   } catch (error) {
     console.error("Error deleting spell:", error);
     alert(`There was an error: ${error.message}`);
