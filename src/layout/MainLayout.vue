@@ -1,7 +1,8 @@
 <template>
     <div class="main-layout">
       <header>
-        <nav>
+        <button @click="toggleNavbar" class="navbar-toggle">☰</button> <!-- This is the toggle button -->
+        <nav v-show="isNavbarVisible">
           <ul>
             <li><router-link to="/">Home</router-link></li>
             <li v-if="!isLoggedIn"><router-link to="/register">Register</router-link></li>
@@ -37,8 +38,9 @@
     name: 'MainLayout',
     setup() {
       const isLoggedIn = ref(false);
-      const userEmail = ref(localStorage.getItem('userEmail')); // Read from localStorage
+      const userEmail = ref(localStorage.getItem('userEmail'));
       const router = useRouter();
+      const isNavbarVisible = ref(false);
       let auth;
   
       onMounted(() => {
@@ -46,24 +48,32 @@
         onAuthStateChanged(auth, (user) => {
           isLoggedIn.value = !!user;
           if (user) {
-            // Optionally refresh userEmail from localStorage if it's expected to change
             userEmail.value = localStorage.getItem('userEmail');
           }
         });
       });
-  
+      
+      const toggleNavbar = () => {
+        console.log('Toggling navbar'); // Add console.log for debugging
+        isNavbarVisible.value = !isNavbarVisible.value;
+        console.log('Is navbar visible:', isNavbarVisible.value); // Check the current state
+      };
+
+
       const handleSignOut = () => {
         signOut(auth).then(() => {
-          localStorage.removeItem('userEmail'); // Clear userEmail on sign out
-          userEmail.value = null; // Clear reactive reference
+          localStorage.removeItem('userEmail');
+          userEmail.value = null;
           router.push("/");
         });
       };
   
       return {
         isLoggedIn,
-        userEmail, // Make userEmail available to the template
+        userEmail,
         handleSignOut,
+        isNavbarVisible,
+        toggleNavbar,
       };
     }
   }
@@ -81,7 +91,7 @@
     background-color: var(--primary-color);
     padding: 20px 0;
     width: 100%;
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
@@ -106,13 +116,50 @@
           }
         }
       }
+      .navbar-toggle {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+        display: none; // Hide toggle button by default
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 20px;
+        z-index: 101; // Ensure it's above other content
+    
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    // Responsive style for navbar
+    @media (max-width: 768px) {
+      .navbar-toggle {
+        display: block; // Show toggle button on small screens
+      }
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        display: block;
+        li {
+          margin: 10px 0;
+        }
+        nav ul li {
+          margin: 10px 0;
+          text-align: center;
+        }
+      }
+      
     }
   }
 
   main {
     padding: 20px;
-    padding-top: 60px; /* Add top padding to account for the fixed header */
-    flex-grow: 1; /* Allow main content to grow and fill available space */
+    padding-top: 60px;
+    flex-grow: 1;
     background-color: transparent;
   }
 
@@ -122,16 +169,22 @@
     text-align: center;
     padding: 10px;
     border-top: 1px solid var(--border-color);
-    width: 100%; /* Ensure footer takes up full width */
-    position: fixed; /* Fix footer to the bottom */
+    width: 100%;
+    position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 100; /* Ensure it stays above other content */
+    z-index: 100;
+    // Add padding-bottom to the main content equal to the height of the footer
+    // to ensure it's not overlapped by the footer
+    main {
+      padding-bottom: 50px; // This should be the height of your footer
+    }
 
     p {
       margin: 0;
     }
   }
 }
+
 </style>
 
