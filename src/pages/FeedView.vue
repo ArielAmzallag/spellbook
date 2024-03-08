@@ -18,7 +18,7 @@
     
     <script setup>
     import MainLayout from '../layout/MainLayout.vue';
-    import ChatComponent from '../components/ChatComponent.vue'; // Make sure the path is correct
+    import ChatComponent from '../components/ChatComponent.vue';
     import { ref, onMounted } from 'vue';
     import { getFirestore, collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
     

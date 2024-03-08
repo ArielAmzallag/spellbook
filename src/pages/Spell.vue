@@ -63,8 +63,8 @@ const spell = ref({
   description: '',
   spellLogoUrl: '',
   wizardId: '',
-  creatorName: '', // Added creatorName to spell object
-  isPublic: false // Initialize isPublic
+  creatorName: '',
+  isPublic: false 
 });
 const spellLogo = ref(null);
 
@@ -87,7 +87,6 @@ const createSpell = async () => {
     return;
   }
   spell.value.wizardId = auth.currentUser.uid;
-  // Retrieve the username from the currentUser object or use a default name
   spell.value.creatorName = auth.currentUser.displayName || "Valerh the Unknown Traveler";
 
   await uploadSpellLogo();

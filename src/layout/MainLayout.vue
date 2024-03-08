@@ -1,7 +1,7 @@
 <template>
     <div class="main-layout">
       <header>
-        <button @click="toggleNavbar" class="navbar-toggle">☰</button> <!-- This is the toggle button -->
+        <button @click="toggleNavbar" class="navbar-toggle">☰</button>
         <nav v-show="isNavbarVisible">
           <ul>
             <li><router-link to="/">Home</router-link></li>
@@ -54,9 +54,9 @@
       });
       
       const toggleNavbar = () => {
-        console.log('Toggling navbar'); // Add console.log for debugging
+        console.log('Toggling navbar'); 
         isNavbarVisible.value = !isNavbarVisible.value;
-        console.log('Is navbar visible:', isNavbarVisible.value); // Check the current state
+        console.log('Is navbar visible:', isNavbarVisible.value);
       };
 
 
@@ -122,12 +122,12 @@
         color: #fff;
         font-size: 2rem;
         cursor: pointer;
-        display: none; // Hide toggle button by default
+        display: none;
         position: absolute;
         top: 0;
         right: 0;
         padding: 20px;
-        z-index: 101; // Ensure it's above other content
+        z-index: 101;
     
         &:focus {
           outline: none;
@@ -135,10 +135,9 @@
       }
     }
 
-    // Responsive style for navbar
     @media (max-width: 768px) {
       .navbar-toggle {
-        display: block; // Show toggle button on small screens
+        display: block; 
       }
       nav ul {
         flex-direction: column;
@@ -174,10 +173,8 @@
     bottom: 0;
     left: 0;
     z-index: 100;
-    // Add padding-bottom to the main content equal to the height of the footer
-    // to ensure it's not overlapped by the footer
     main {
-      padding-bottom: 50px; // This should be the height of your footer
+      padding-bottom: 50px;
     }
 
     p {

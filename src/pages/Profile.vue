@@ -50,26 +50,17 @@
   import MainLayout from '../layout/MainLayout.vue';
   import { ref, onMounted } from 'vue';
   import { getAuth, updateProfile, sendPasswordResetEmail, onAuthStateChanged } from 'firebase/auth';
-
   
   const auth = getAuth();
-  const user = auth.currentUser;
-  const email = ref(user?.email || '');
-  const username = ref(user?.displayName || '');
-  const bio = ref(''); // Assuming you'll store this somewhere
+  const user = ref(auth.currentUser);
+  const email = ref(user.value?.email || '');
+  const username = ref(user.value?.displayName || '');
+  const bio = ref('');
   
-  onAuthStateChanged(auth, (user) => {
-  if (user) {
-
-    email.value = user.email;
-    username.value = user.displayName;
-  }
-});
-
   const updateUsername = async () => {
     if (username.value) {
       try {
-        await updateProfile(auth.currentUser, {
+        await updateProfile(user.value, {
           displayName: username.value,
         });
         alert('Username updated successfully!');
@@ -81,9 +72,8 @@
   };
   
   const updateBio = async () => {
-    // Update the bio in your database.
-    // This will depend on how you're storing user profiles.
     console.log('Bio updated to:', bio.value);
+    // Add your bio updating logic here
   };
   
   const sendPasswordReset = async () => {
@@ -97,27 +87,29 @@
       }
     }
   };
-
+  
   const validateAndUpdateProfile = async () => {
-  let updatesApplied = false;
-
-  if (username.value && username.value !== user?.displayName) {
-    try {
-      await updateProfile(auth.currentUser, {
-        displayName: username.value,
-      });
-      console.log('Username updated successfully!');
-      updatesApplied = true;
-    } catch (error) {
-      console.error('Error updating username:', error);
-      alert('There was a problem updating your username.');
+    let updatesApplied = false;
+  
+    if (username.value && username.value !== user.value?.displayName) {
+      try {
+        await updateProfile(user.value, {
+          displayName: username.value,
+        });
+        console.log('Username updated successfully!');
+        updatesApplied = true;
+      } catch (error) {
+        console.error('Error updating username:', error);
+        alert('There was a problem updating your username.');
+      }
     }
-  }
-
-  if (updatesApplied) {
-    alert('Profile updated successfully!');
-  }
-};
+  
+    // ...include additional logic for other profile updates, if any
+  
+    if (updatesApplied) {
+      alert('Profile updated successfully!');
+    }
+  };
   
   const generateRandomUsername = () => {
     const adjectives = ["Mighty", "Ancient", "Mystic", "Shadow", "Quiet"];
@@ -129,7 +121,14 @@
   };
   
   onMounted(() => {
-    // Initialize the bio if needed or fetch additional user profile information here
+    onAuthStateChanged(auth, (newUser) => {
+      if (newUser) {
+        user.value = newUser;
+        email.value = newUser.email;
+        username.value = newUser.displayName;
+        // Here you would also fetch the bio if it's stored outside of the auth state
+      }
+    });
   });
   </script>
   

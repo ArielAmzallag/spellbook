@@ -27,12 +27,12 @@
       sendEmailVerification(user)
         .then(() => {
           emailSent.value = true;
-          setTimeout(() => emailSent.value = false, 60000); // Hide the message after 1 minute
-          setTimeout(() => isButtonDisabled.value = false, 60000); // Re-enable the button after 1 minute
+          setTimeout(() => emailSent.value = false, 60000);
+          setTimeout(() => isButtonDisabled.value = false, 60000);
         })
         .catch((error) => {
           console.error("Error resending verification email:", error);
-          isButtonDisabled.value = false; // Re-enable the button immediately if there's an error
+          isButtonDisabled.value = false; 
           if (error.code === "auth/too-many-requests") {
             errorMessage.value = "Too many requests. Please wait a while before trying again.";
           } else {

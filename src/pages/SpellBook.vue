@@ -101,7 +101,6 @@ const deleteSpell = async (spellId) => {
     alert('Spell deleted successfully');
     
 
-    // Update this line to use 'spells' instead of 'publicSpells'
     spells.value = spells.value.filter(spell => spell.id !== spellId);
     location.reload()
   } catch (error) {
@@ -118,8 +117,9 @@ onUnmounted(() => {
   }
 });
   </script>
-  
+
   <style lang="scss" scoped>
+  
   .spellbook-container {
     background: var(--background-color);
     color: var(--text-color);
@@ -142,8 +142,8 @@ onUnmounted(() => {
     }
   
     .content-container {
-      display: contents;
-
+      display: grid;
+  
       .spell-list-container {
         border-right: 2px solid var(--border-color);
         padding-right: 1rem;
@@ -215,7 +215,22 @@ onUnmounted(() => {
       color: var(--text-color);
       grid-column: 1 / -1;
     }
+  
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+  
+      .spell-list-container {
+        border-right: none;
+        padding-right: 0;
+      }
+  
+      .spell-details-container {
+        padding-left: 0;
+      }
+    }
   }
+  
   
   </style>
   

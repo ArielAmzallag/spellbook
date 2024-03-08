@@ -75,7 +75,6 @@ const signInWithGoogle = () => {
     signInWithPopup(getAuth(), provider)
     .then((result) => {
         console.log(result.user);
-        // Redirect based on email verification status
         if (result.user.emailVerified) {
           router.push("/feed");
         } else {

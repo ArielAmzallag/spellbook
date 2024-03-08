@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, remove, push, onValue, query, limitToLast } from "firebase/database";
 
-// Since Firebase App is initialized in main.js, re-using the config here should not reinitialize the app but reference the existing instance.
 const firebaseConfig = {
   apiKey: "AIzaSyAm1ozxEOLI6R6sK-ew0PvSOYdVwRJ78pw",
   authDomain: "spellbook-d52a0.firebaseapp.com",
@@ -12,7 +11,6 @@ const firebaseConfig = {
   appId: "1:987827423144:web:f40bffaf907fa8ee877f9d",
   measurementId: "G-7MPNW5JD2H"
 };
-// This should not create a new app instance if one already exists, but rather use the existing [DEFAULT] app instance.
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
